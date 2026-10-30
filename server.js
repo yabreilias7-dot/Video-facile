@@ -183,7 +183,7 @@ http.createServer(async (req, res) => {
         }),
       });
       const d = await r.json();
-      if (!r.ok || !d.id) return json(res, 502, { error: "Le service d’avatar a refusé la demande." });
+    if (!r.ok || !d.id) return json(res, 502, { error: "Refus du service : " + (d.kind || "") + " " + (d.description || r.status) });  if (!r.ok || !d.id) return json(res, 502, { error: "Le service d’avatar a refusé la demande." });
       return json(res, 200, { id: d.id });
     } catch (e) { return json(res, 500, { error: "Erreur du serveur." }); }
   }
