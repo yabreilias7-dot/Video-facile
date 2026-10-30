@@ -164,4 +164,12 @@ http.createServer(async (req, res) => {
   }
 
   json(res, 404, { error: "Introuvable." });
-}).listen(process.env.PORT || 3000, () => console.log("Prêt."));
+}).listen(process.env.PORT || 3000, () => console.log("Prêt."));async function avatars() {
+  try {
+    const list = require("fs").readdirSync(__dirname + "/avatars")
+      .filter((n) => /\.(jpe?g|png)$/i.test(n))
+      .map((n) => ({ name: n, url: "https://raw.githubusercontent.com/" + REPO + "/main/avatars/" + encodeURIComponent(n) }));
+    if (list.length) return list;
+  } catch (e) {}
+  return [{ name: "Alice", url: DEFAULT_AVATAR }];
+}
